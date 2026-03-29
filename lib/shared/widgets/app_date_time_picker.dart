@@ -2,16 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_setup_riverpod/core/extensions/theme_extension.dart';
 
+/// Form field untuk menyajikan input kalender atau waktu.
 class AppDateTimePicker extends StatelessWidget {
+  /// Nama identitas (key) untuk form field tersebut.
   final String name;
+
+  /// Label atau judul dari input kalender ini.
   final String label;
+
+  /// Tipe input yang menentukan apakah kalender dirender sebagai tanggal, waktu, atau keduanya.
   final InputType inputType;
+
+  /// Icon opsional yang mendampingi input datetime.
   final IconData? icon;
+
+  /// Fungsi validasi untuk nilai datetime yang diinput oleh pengguna.
   final String? Function(DateTime?)? validator;
+
+  /// Nilai awal bawaan yang ditampilkan sebelum pengguna berinteraksi.
   final DateTime? initialValue;
+
+  /// Batas minimal kalender yang dapat dipilih oleh pengguna.
   final DateTime? firstDate;
+
+  /// Batas maksimal kalender yang dapat dipilih oleh pengguna.
   final DateTime? lastDate;
+
+  /// Fungsi callback yang dipanggil ketika nilai berubah.
   final void Function(DateTime?)? onChanged;
+
+  /// Penanda apakah input ini bisa diubah atau di-disable.
   final bool enabled;
 
   const AppDateTimePicker({

@@ -3,18 +3,42 @@ import 'package:flutter_setup_riverpod/core/extensions/localization_extension.da
 import 'package:flutter_setup_riverpod/core/extensions/theme_extension.dart';
 import 'package:flutter_setup_riverpod/shared/widgets/app_text.dart';
 
+/// Bottom sheet yang menampilkan opsi daftar item.
 class AppListOptionsBottomSheet extends StatelessWidget {
+  /// Callback yang dipanggil saat membuat item baru.
   final VoidCallback? onCreate;
+
+  /// Callback yang dipanggil saat memilih banyak item.
   final VoidCallback onSelectMany;
+
+  /// Builder untuk widget filter dan sort.
   final Widget Function() filterSortWidgetBuilder;
+
+  /// Builder opsional untuk export widget.
   final Widget Function()? exportWidgetBuilder;
+
+  /// Judul untuk aksi create.
   final String? createTitle;
+
+  /// Sub-judul untuk aksi create.
   final String? createSubtitle;
+
+  /// Judul untuk aksi select banyak item.
   final String? selectManyTitle;
+
+  /// Sub-judul untuk aksi select banyak item.
   final String? selectManySubtitle;
+
+  /// Judul untuk aksi filter dan sort.
   final String? filterSortTitle;
+
+  /// Sub-judul untuk aksi filter dan sort.
   final String? filterSortSubtitle;
+
+  /// Judul untuk aksi export.
   final String? exportTitle;
+
+  /// Sub-judul untuk aksi export.
   final String? exportSubtitle;
 
   const AppListOptionsBottomSheet({

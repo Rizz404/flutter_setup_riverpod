@@ -6,35 +6,90 @@ import 'package:flutter_setup_riverpod/core/extensions/localization_extension.da
 import 'package:flutter_setup_riverpod/core/extensions/theme_extension.dart';
 import 'package:flutter_setup_riverpod/shared/widgets/app_text.dart';
 
+/// Field input yang dapat digunakan untuk melakukan pencarian.
 class AppSearchField<T> extends StatefulWidget {
+  /// Nama field form builder.
   final String name;
+
+  /// Teks petunjuk yang dirender dalam kolom pencarian saat kosong.
   final String? hintText;
+
+  /// Nilai string awal yang dipasang untuk field search ini.
   final String? initialValue;
+
+  /// Callback listener ketika inputan string user diubah.
   final ValueChanged<String>? onChanged;
+
+  /// Callback yang triggered tatkala tombol bersihkan dipencet.
   final VoidCallback? onClear;
+
+  /// Spasi pengisi di sekeliling teks input di dalam kotak.
   final EdgeInsetsGeometry? contentPadding;
+
+  /// Warna latar form area yang dapat dicustom.
   final Color? fillColor;
+
+  /// Konfigurasi aktivasi field ini, dimana value false mengunci input.
   final bool enabled;
+
+  /// Ikon yang dirender duluan di bagian pangkal kolom teks masukan.
   final Widget? prefixIcon;
+
+  /// Merender icon x buat membersihkan query jika bernilai true.
   final bool showClearButton;
+
+  /// Fungsi untuk menjalankan form validation rule terhadap query teks.
   final String? Function(String?)? validator;
+
+  /// Label caption di atas input kotak search.
   final String? label;
 
+  /// Menentukan apakah fitur autocomplete search hasil dari [onSearch] di enable.
   final bool enableAutocomplete;
+
+  /// Future function untuk menghandle data network pada list suggest search.
   final Future<List<T>> Function(String query)? onSearch;
+
+  /// Widget function untuk menggambar card suggestion items dari result pencarian.
   final Widget Function(BuildContext context, T item)? itemBuilder;
+
+  /// Nilai teks asli untuk item generik bertipe `T`.
   final String Function(T item)? itemValueMapper;
+
+  /// Teks yang akan ditampakkan sebagai display suggestion pencarian dari item.
   final String Function(T item)? itemDisplayMapper;
+
+  /// Konverter subtitle tambahan dari entitas item list.
   final String Function(T item)? itemSubtitleMapper;
+
+  /// Bawaan default icon yang dipajang bersama di samping daftar saran.
   final IconData? itemIcon;
+
+  /// Hook listener pada momen spesifik item dropdown ditekan untuk select.
   final void Function(T item)? onItemSelected;
+
+  /// Default count item untuk awal pemuatan halaman.
   final int initialItemsToShow;
+
+  /// Jumlah data page per trigger muatan lebih banyak dari lazy scroll load.
   final int itemsPerLoadMore;
+
+  /// Nyalakan sistem loading more otomatis jika panjang list besar dan discroll.
   final bool enableLoadMore;
+
+  /// Tinggi maksimal constraint pop menu list suggestion yang bakal dirender.
   final double? suggestionsMaxHeight;
+
+  /// Spasi pinggir padding area dropdown menu overlay untuk suggestion.
   final EdgeInsetsGeometry? suggestionsPadding;
+
+  /// Waktu timer dalam milisecond untuk mendaftarkan event delay di search query callback [onDebouncedChanged].
   final int debounceMilliseconds;
+
+  /// Versi debounce dari event perubahan teks, membatasi temanya spam panggilan.
   final ValueChanged<String>? onDebouncedChanged;
+
+  /// Nilai string awalan pertama saat screen tampil untuk box tampilan.
   final String? initialDisplayText;
 
   const AppSearchField({

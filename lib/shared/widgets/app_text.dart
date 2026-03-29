@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_setup_riverpod/core/extensions/theme_extension.dart';
 
+/// Enum yang mewakili setiap style typography pada aplikasi.
 enum AppTextStyle {
   displayLarge,
   displayMedium,
@@ -19,31 +20,72 @@ enum AppTextStyle {
   labelSmall,
 }
 
+/// Widget teks kustom yang sudah terintegrasi dengan konfigurasi [AppTextStyle] dan warna theme.
 class AppText extends StatelessWidget {
+  /// Nilai teks yang akan ditampilkan.
   final String text;
+
+  /// Preferensi style dasar untuk ukuran dan ketebalan teks (dari [AppTextStyle]).
   final AppTextStyle? style;
 
+  /// Cara mengatur perataan (alignment) untuk teks.
   final TextAlign? textAlign;
+
+  /// Arah tulisan teks, contohnya kiri-ke-kanan atau kanan-ke-kiri.
   final TextDirection? textDirection;
+
+  /// Identifier dari sebuah wilayah atau bahasa yang mempengaruhi format layout teks.
   final Locale? locale;
+
+  /// Menentukan apakah teks harus dibungkus (wrap) jika melebihi batas baris.
   final bool? softWrap;
+
+  /// Perilaku teks ketika lebarnya melebihi lebar kontainer.
   final TextOverflow? overflow;
+
+  /// Objek text scaler yang mengatur penambahan atau pengurangan ukuran teks otomatis dari setting sistem.
   final TextScaler? textScaler;
+
+  /// Jumlah baris maksimum teks yang akan dirender.
   final int? maxLines;
+
+  /// Label semantik yang digunakan oleh alat aksesibilitas.
   final String? semanticsLabel;
+
+  /// Menentukan lebar dasar (width basis) yang dipakai untuk menghitung ukuran teks.
   final TextWidthBasis? textWidthBasis;
+
+  /// Pengaturan perilaku tinggi baris (line height) pada teks.
   final TextHeightBehavior? textHeightBehavior;
+
+  /// Warna yang dipakai untuk menyoroti (highlight) teks ini ketika dipilih.
   final Color? selectionColor;
 
+  /// Gaya kustom tambahan yang akan digabungkan ke konfigurasi utama.
   final TextStyle? customStyle;
+
+  /// Warna tulisan teks individual.
   final Color? color;
+
+  /// Ukuran font spesifik yang menimpa (override) ukuran dasar yang ada.
   final double? fontSize;
+
+  /// Ketebalan tulisan teks secara absolut.
   final FontWeight? fontWeight;
+
+  /// Style tulisan spesifik misalnya cetak miring (italic).
   final FontStyle? fontStyle;
+
+  /// Jarak spasi antar huruf untuk teks.
   final double? letterSpacing;
+
+  /// Tinggi spesifik dari setiap baris teks.
   final double? lineHeight;
+
+  /// Dekorasi linear teks, seperti underline (garis bawah) dan sejenisnya.
   final TextDecoration? decoration;
 
+  /// Konstruktor utama dari komponen AppText.
   const AppText(
     this.text, {
     super.key,

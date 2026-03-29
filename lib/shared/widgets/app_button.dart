@@ -2,21 +2,42 @@ import 'package:flutter/material.dart';
 import 'package:flutter_setup_riverpod/core/extensions/theme_extension.dart';
 import 'package:flutter_setup_riverpod/shared/widgets/app_text.dart';
 
+/// Enum yang mewakili varian tipe dari komponen tombol.
 enum AppButtonVariant { filled, outlined, text }
 
+/// Enum yang mewakili spesifikasi warna semantik dari komponen tombol.
 enum AppButtonColor { primary, secondary, success, error, warning, neutral }
 
+/// Enum yang mewakili ukuran dari komponen tombol.
 enum AppButtonSize { small, medium, large }
 
+/// Komponen tombol utama yang dikustomisasi dengan standar theme aplikasi.
 class AppButton extends StatelessWidget {
+  /// Label teks yang ditampilkan di dalam tombol.
   final String text;
+
+  /// Fungsi callback ketika tombol ditekan.
   final VoidCallback? onPressed;
+
+  /// Status apakah tombol sedang dalam proses loading.
   final bool isLoading;
+
+  /// Menentukan varian bentuk dari tombol, seperti filled atau outlined.
   final AppButtonVariant variant;
+
+  /// Menentukan profil warna yang digunakan oleh tombol.
   final AppButtonColor color;
+
+  /// Menentukan ukuran tombol secara vertikal dan padding-nya.
   final AppButtonSize size;
+
+  /// Menentukan apakah tombol harus memenuhi lebar layar secara maksimum.
   final bool isFullWidth;
+
+  /// Icon opsional yang ditempatkan pada sisi kiri teks.
   final Widget? leadingIcon;
+
+  /// Icon opsional yang ditempatkan pada sisi kanan teks.
   final Widget? trailingIcon;
 
   const AppButton({

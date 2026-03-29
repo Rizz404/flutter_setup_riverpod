@@ -1,6 +1,8 @@
 import 'package:flutter_setup_riverpod/core/extensions/logger_extension.dart';
 
+/// Extension untuk mengambil field secara aman dari format JSON dengan penyesuaian tipe data.
 extension SafeMap on Map<String, dynamic> {
+  /// Mengambil field wajib dan melempar error beserta log jika tidak ditemukan.
   T getField<T>(String key) {
     try {
       final value = this[key];
@@ -65,6 +67,7 @@ extension SafeMap on Map<String, dynamic> {
     }
   }
 
+  /// Mengambil field secara opsional dan mengembalikan null jika tidak ditemukan atau tidak valid.
   T? getFieldOrNull<T>(String key) {
     try {
       final value = this[key];

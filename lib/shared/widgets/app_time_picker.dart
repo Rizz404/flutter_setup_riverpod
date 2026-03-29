@@ -3,10 +3,18 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_setup_riverpod/core/extensions/localization_extension.dart';
 import 'package:flutter_setup_riverpod/core/extensions/theme_extension.dart';
 
+/// Form field kustom untuk menyajikan dialog pemilih waktu (time picker).
 class AppTimePicker extends StatelessWidget {
+  /// Nama identitas (key) untuk form field tersebut.
   final String name;
+
+  /// Label atau judul instruksional dari time picker ini.
   final String label;
+
+  /// Nilai waktu bawaan saat dialog pertama kali dirender.
   final TimeOfDay? initialValue;
+
+  /// Penanda apakah input ini bisa diklik dan diinteraksikan.
   final bool enabled;
 
   const AppTimePicker({

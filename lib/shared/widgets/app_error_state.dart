@@ -3,11 +3,21 @@ import 'package:flutter_setup_riverpod/core/extensions/localization_extension.da
 import 'package:flutter_setup_riverpod/core/extensions/theme_extension.dart';
 import 'package:flutter_setup_riverpod/shared/widgets/app_text.dart';
 
+/// Widget yang menampilkan ilustrasi dan pesan ketika terjadi sebuah error atau state yang gagal.
 class AppErrorState extends StatelessWidget {
+  /// Judul utama yang mendeskripsikan error.
   final String title;
+
+  /// Penjelasan lebih detail mengenai error yang terjadi.
   final String description;
+
+  /// Icon yang akan ditampilkan di atas teks error.
   final IconData icon;
+
+  /// Fungsi callback yang dipanggil jika tombol coba lagi ditekan.
   final VoidCallback? onRetry;
+
+  /// Label teks khusus untuk tombol coba lagi.
   final String? retryButtonText;
 
   const AppErrorState({

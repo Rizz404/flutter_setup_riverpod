@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_setup_riverpod/core/extensions/theme_extension.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+/// Enum yang mendefinisikan beberapa variabel ukuran standar dari komponen AppImage.
 enum ImageSize {
   xSmall(16),
   small(24),
@@ -19,24 +20,54 @@ enum ImageSize {
   final double value;
 }
 
+/// Enum yang mewakili dua bentuk geometri utama dari gambar yakni lingkaran dan persegi panjang.
 enum ImageShape { circle, rectangle }
 
+/// Widget wrapper khusus yang menangani gambar berbasis local file, url network, maupun static asset.
 class AppImage extends StatelessWidget {
+  /// Ukuran proporsional gambar yang di-resolve menjadi satuan logic pixel.
   final ImageSize size;
+
+  /// URL tautan network yang akan dirender jika tidak null.
   final String? imageUrl;
+
+  /// Path dari static image di dalam bundle APK jika tidak null.
   final String? assetPath;
+
+  /// System file yang menunjuk kepada image buffer jika disediakan.
   final File? imageFile;
+
+  /// Widget yang ditampilkan sembari menunggu network image dimuat atau sebelum load selesai.
   final Widget? placeholder;
+
+  /// Widget fallback yang tampil seandainya error terjadi ketika mencoba render image.
   final Widget? errorWidget;
+
+  /// Fungsi handler yang dipanggil saat user menekankan jari ke arah komponen image.
   final VoidCallback? onTap;
+
+  /// Apakah diperbolehkan membuka dialog viewer gambar ukuran penuh di klik.
   final bool enablePreview;
+
+  /// Kontrol visibilitas untuk batas (border) yang mengelilingi radius luar kotak gambar.
   final bool showBorder;
+
+  /// Warna bingkai dekoratif jika show border diterapkan.
   final Color? borderColor;
+
+  /// Ketebalan bingkai garis keliling jika [showBorder] memiliki nilai true.
   final double? borderWidth;
+
+  /// Bentuk kliping luar yang membungkus gambar ([circle] atau [rectangle]).
   final ImageShape shape;
+
+  /// Cara agar foto beradaptasi dengan dimensi kotaknya, standar menggunakan cover.
   final BoxFit fit;
+
+  /// Warna di sekitar lapisan padding / background jika gambar berada di dalam kotak.
   final Color? backgroundColor;
 
+  /// Lebar mutlak tambahan dari gambar jika tak mengandalkan nilai di enum [size].
   final double? width;
   final double? height;
 

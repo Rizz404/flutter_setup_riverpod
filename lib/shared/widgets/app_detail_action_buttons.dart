@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_setup_riverpod/core/extensions/localization_extension.dart';
 import 'package:flutter_setup_riverpod/shared/widgets/app_button.dart';
 
+/// Widget yang menampilkan deretan tombol aksi seperti edit dan delete di halaman detail.
 class AppDetailActionButtons extends StatelessWidget {
+  /// Fungsi callback yang dipanggil ketika tombol edit ditekankan.
   final VoidCallback? onEdit;
+
+  /// Fungsi callback yang dipanggil ketika tombol delete ditekankan.
   final VoidCallback? onDelete;
 
   const AppDetailActionButtons({super.key, this.onEdit, this.onDelete});

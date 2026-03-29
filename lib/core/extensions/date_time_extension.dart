@@ -1,6 +1,8 @@
 import 'package:flutter_setup_riverpod/core/extensions/localization_extension.dart';
 
+/// Extension untuk mempermudah format object DateTime ke string.
 extension DateTimeExtension on DateTime {
+  /// Mengembalikan string waktu relatif seperti '1 day ago' dengan localization.
   String get timeAgo {
     try {
       final l10n = LocalizationExtension.current;
@@ -54,6 +56,7 @@ extension DateTimeExtension on DateTime {
     }
   }
 
+  /// Melakukan format tanggal menjadi string yang lebih mudah dibaca seperti 'Jan 1, 2025'.
   String get formattedDate {
     try {
       final l10n = LocalizationExtension.current;
@@ -91,21 +94,25 @@ extension DateTimeExtension on DateTime {
     }
   }
 
+  /// Melakukan format waktu dengan zero-pad menjadi string seperti '09:05'.
   String get formattedTime {
     final h = hour.toString().padLeft(2, '0');
     final m = minute.toString().padLeft(2, '0');
     return '$h:$m';
   }
 
+  /// Mengembalikan gabungan format dari nilai tanggal dan waktu.
   String get formattedDateTime {
     return '$formattedDate $formattedTime';
   }
 
+  /// Mengecek apakah object DateTime ini menuju ke hari ini.
   bool get isToday {
     final now = DateTime.now();
     return year == now.year && month == now.month && day == now.day;
   }
 
+  /// Mengecek apakah object DateTime ini menuju ke kemarin.
   bool get isYesterday {
     final yesterday = DateTime.now().subtract(const Duration(days: 1));
     return year == yesterday.year &&
@@ -113,6 +120,7 @@ extension DateTimeExtension on DateTime {
         day == yesterday.day;
   }
 
+  /// Mendapatkan nama hari sesuai dengan nilai locale saat ini.
   String get dayName {
     try {
       final l10n = LocalizationExtension.current;
@@ -140,7 +148,9 @@ extension DateTimeExtension on DateTime {
     }
   }
 
+  /// Mengembalikan nilai full representasi format ISO-8601.
   String get iso8601String => toIso8601String();
 
+  /// Mengembalikan bagian format tanggal saja dari representasi string ISO-8601.
   String get iso8601Date => toIso8601String().split('T').first;
 }

@@ -6,32 +6,69 @@ import 'package:flutter_setup_riverpod/core/extensions/localization_extension.da
 import 'package:flutter_setup_riverpod/core/extensions/theme_extension.dart';
 import 'package:flutter_setup_riverpod/shared/widgets/app_text.dart';
 
+/// Dropdown interaktif yang memungkinkan users mengetik di text box untuk memfilter daftar list [items].
 class AppSearchableDropdown<T> extends StatefulWidget {
+  /// Nama internal field tipe dari library flutter form builder.
   final String name;
+
+  /// Nilai entitas opsional default sewaktu dropdown dipanggil pertama.
   final T? initialValue;
+
+  /// Caption teks pembantu widget yang nampang di pojok alas box dropdown.
   final String? label;
+
+  /// Saran abu abu bila tak ada nilai [T] yang nampak mengisi masukan dropdown.
   final String? hintText;
+
+  /// Boolean jika di-set true maka input box aktif untuk modifikasi event onTap.
   final bool enabled;
+
+  /// Cek rule dari validasi field dropdown apakah ada null/kosong dan memunculkan error message.
   final String? Function(String?)? validator;
 
+  /// Kumpulan list list generic items yang disajikan dari backend/state ke menu popup di-scroll.
   final List<T> items;
+
+  /// Flag penanda apabila ada data refresh yg butuh waktu, merender circular loader.
   final bool isLoading;
+
+  /// Fungsi pengirim pencarian inputan dikala keyboard ditekan ke proses pencarian eksternal.
   final ValueChanged<String> onSearch;
+
+  /// Event opsional ketika dropdown digeser hingga ujung list, men-trigger pagination API baru.
   final VoidCallback? onLoadMore;
 
+  /// Apakah daftar remote api yang dituju sudah tidak memiliki index item selanjutnya buat di paginasi.
   final bool hasMore;
+
+  /// Flag mengidentifikasi bila widget dropdown sedang menunggu [onLoadMore] api berjalan memutar spinner indicator.
   final bool isLoadingMore;
 
+  /// Judul tampilan utama teks item list pada entitas objek generic [T] map.
   final String Function(T item) itemDisplayMapper;
+
+  /// Ekstraktor raw value seperti id yang dipancarkan ketika validasi.
   final String Function(T item) itemValueMapper;
+
+  /// Menampilkan baris paragraf kedua sekunder detail info list dari [item].
   final String? Function(T item)? itemSubtitleMapper;
+
+  /// Mapper buat mengidentifikasi logo di popup list entitas jika ada di setiap index [item].
   final IconData? Function(T item)? itemIconMapper;
 
+  /// Memberi notif kepada class pemanggil waktu item [T] ini terpilih.
   final void Function(T? item)? onChanged;
 
+  /// Batas padding internal keliling jarak elemen input text box.
   final EdgeInsetsGeometry? contentPadding;
+
+  /// Cat bg belakang border inputan.
   final Color? fillColor;
+
+  /// Tambahan dekorasi pemanis icon depan widget input dropdown sebelum placehoder font/value teks.
   final Widget? prefixIcon;
+
+  /// Konstriks tinggi box daftar dropdown di layar jika data panjang agar list dapat men-scroll isinya dengan mulus.
   final double dropdownMaxHeight;
 
   const AppSearchableDropdown({

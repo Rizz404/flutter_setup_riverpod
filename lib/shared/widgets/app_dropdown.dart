@@ -4,27 +4,59 @@ import 'package:flutter_setup_riverpod/core/extensions/localization_extension.da
 import 'package:flutter_setup_riverpod/core/extensions/theme_extension.dart';
 import 'package:flutter_setup_riverpod/shared/widgets/app_text.dart';
 
+/// Model class untuk merpresentasikan sebuah item di dalam dropdown.
 class AppDropdownItem<T> {
+  /// Nilai sebenarnya dari item tersebut yang akan disimpan atau dikirim.
   final T value;
+
+  /// Label teks yang akan dirender di UI dropdown.
   final String label;
+
+  /// Widget icon opsional yang dirender bersisian dengan label.
   final Widget? icon;
 
   const AppDropdownItem({required this.value, required this.label, this.icon});
 }
 
+/// Widget dropdown kustom yang merangkum fungsionalitas FormBuilderDropdown dengan theme standar aplikasi.
 class AppDropdown<T> extends StatelessWidget {
+  /// Nama identitas (key) untuk form field tersebut.
   final String name;
+
+  /// Nilai initial (bawaan) yang terpilih ketika dibuat.
   final T? initialValue;
+
+  /// Kumpulan list opsi yang ditampilkan di dalam dropdown.
   final List<AppDropdownItem<T>> items;
+
+  /// Fungsi callback yang dipicu ketika opsi terpilih berubah.
   final ValueChanged<T?>? onChanged;
+
+  /// Teks petunjuk saat opsi belum ada yang dipilih (placeholder).
   final String? hintText;
+
+  /// Label atau judul dari isian dropdown ini.
   final String? label;
+
+  /// Penanda apakah interaksi dengan dropdown diizinkan.
   final bool enabled;
+
+  /// Padding internal di dalam bingkai input form field.
   final EdgeInsetsGeometry? contentPadding;
+
+  /// Warna latar dalam dari input field.
   final Color? fillColor;
+
+  /// Widget icon tambahan yang ditempatkan di depan area field.
   final Widget? prefixIcon;
+
+  /// Menentukan apakah isinya direnggangkan mengisi sisa space pada row.
   final bool isExpanded;
+
+  /// Lebar mutlak dari komponen dropdown (jika ditentukan).
   final double? width;
+
+  /// Fungsi yang memvalidasi opsi yang dipilih melalui form key.
   final String? Function(T?)? validator;
 
   const AppDropdown({

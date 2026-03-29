@@ -10,18 +10,42 @@ import 'package:flutter_setup_riverpod/core/extensions/theme_extension.dart';
 import 'package:flutter_setup_riverpod/core/utils/toast_utils.dart';
 import 'package:flutter_setup_riverpod/shared/widgets/app_text.dart';
 
+/// Form field untuk menyajikan input file picker yang mendukung multiselect dan batasan format.
 class AppFilePicker extends StatefulWidget {
+  /// Nama identitas (key) untuk form field tersebut.
   final String name;
+
+  /// Label atau judul dari input pengunggah file ini.
   final String? label;
+
+  /// Teks petunjuk tentang file apa yang seharusnya diunggah.
   final String? hintText;
+
+  /// Menandakan apakah isian file ini wajib diisi.
   final bool isRequired;
+
+  /// Menentukan apakah user diizinkan memilih lebih dari satu file.
   final bool allowMultiple;
+
+  /// Daftar ektensi (format file) yang diperbolehkan untuk dipilih.
   final List<String>? allowedExtensions;
+
+  /// Batas jumlah file maksimal jika param [allowMultiple] aktif.
   final int? maxFiles;
+
+  /// Batasan jumlah ukuran file dihitung dalam ukuran MB.
   final int? maxSizeInMB;
+
+  /// Fungsi validasi kustom untuk rentetan nilai [PlatformFile].
   final String? Function(List<PlatformFile>?)? validator;
+
+  /// Nilai initial (bawaan) berupa rentetan file saat ui pertama kali dibuat.
   final List<PlatformFile>? initialFiles;
+
+  /// Jenis spesifik dari file yang difilter saat picker terbuka.
   final FileType fileType;
+
+  /// Fungsi callback yang dipicu setiap kali pengguna mengubah atau menghapus lampiran.
   final void Function(List<PlatformFile>)? onFilesChanged;
 
   const AppFilePicker({

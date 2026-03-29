@@ -1,11 +1,14 @@
 import 'package:flutter_setup_riverpod/core/extensions/localization_extension.dart';
 
+/// Extension untuk mempermudah format angka ke dalam bentuk currency.
 extension NumExtension on num {
+  /// Melakukan format angka ke dalam string Yen dengan pemisah titik.
   String toYen() {
     final formatter = _YenFormatter();
     return formatter.format(this);
   }
 
+  /// Melakukan format angka ke dalam format singkat string Yen (contoh: ¥ 1.5M).
   String toYenShort() {
     String billionSuffix = 'M';
     String millionSuffix = 'jt';

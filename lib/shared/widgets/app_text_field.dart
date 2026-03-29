@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_setup_riverpod/core/extensions/theme_extension.dart';
 
+/// Enumerasi ragam format field teks form seperti [email], [password], atau [number].
 enum AppTextFieldType {
   email,
   password,
@@ -15,21 +16,51 @@ enum AppTextFieldType {
   hidden,
 }
 
+/// Pembungkus custom standard textform dari library flutter form builder.
 class AppTextField extends StatefulWidget {
+  /// Parameter internal name buat kunci values form builder object map data form input di screen.
   final String name;
+
+  /// Input awalan field sebelum user memasukkan teks ketikan baru.
   final String? initialValue;
+
+  /// String keterangan label nama/fungsi dari widget text box di antar muka aplikasi.
   final String label;
+
+  /// Panduan bantuan ketika area box input kosong belum ada string bernilai (bukan null, namun '').
   final String? placeHolder;
+
+  /// Jenis masukan keyboard layar ponsel (huruf / numerik / email karakter khusus dan toggle obsure sandi otomatis).
   final AppTextFieldType type;
+
+  /// Membatasi scroll atau jumlah line break kolom yang di isikan user form builder multiline text field.
   final int? maxLines;
+
+  /// Call function string? returning null bila error list validasi rule clear/aman, tapi kalau validasi ada yg jebol kembalikan error message l10n.
   final String? Function(String?)? validator;
+
+  /// Capitalize perhuruf dari awalan atau word by default nyala agar string form kapitalnya natural auto correction.
   final bool enableAutoCapitalization;
+
+  /// Flag text tidak bisa di delete/modify dan mengabaikan event ketik keyboard tap box input tetapi value form tetap masuk (disabled versi estetik).
   final bool readOnly;
+
+  /// Teks tempelan di depan kolom input contoh 'Rp. ', '+62' dsb.
   final String? prefixText;
+
+  /// Mirip prefixText cuma letaknya di sisi ujung akhir border input.
   final String? suffixText;
+
+  /// Komponen widget tambahan untuk visual atau trigger navigasi popup pada awal border input.
   final Widget? prefixIcon;
+
+  /// Seperti [prefixIcon] letak di ekor kotak biasanya buat pasang tombol visibilitas mata / copy clip.
   final Widget? suffixIcon;
+
+  /// Event listener function trigger on string perubahan ketika penekanan karakter keyboard pada field.
   final void Function(String?)? onChanged;
+
+  /// Opsi melumpuhkan fungsi field sama sekali.
   final bool? enabled;
 
   const AppTextField({
