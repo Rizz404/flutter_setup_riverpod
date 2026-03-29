@@ -11,7 +11,7 @@ import 'package:flutter_setup_riverpod/core/utils/toast_utils.dart';
 import 'package:flutter_setup_riverpod/shared/widgets/app_text.dart';
 
 /// Form field untuk menyajikan input file picker yang mendukung multiselect dan batasan format.
-class AppFilePicker extends StatefulWidget {
+class AppFilePicker extends StatelessWidget {
   /// Nama identitas (key) untuk form field tersebut.
   final String name;
 
@@ -64,87 +64,7 @@ class AppFilePicker extends StatefulWidget {
     this.onFilesChanged,
   });
 
-  @override
-  AppFilePickerState createState() => AppFilePickerState();
-}
-
-class AppFilePickerState extends State<AppFilePicker> {
-  List<PlatformFile> _selectedFiles = [];
-
-  @override
-  void initState() {
-    super.initState();
-    if (widget.initialFiles != null) {
-      _selectedFiles = widget.initialFiles!;
-    }
-  }
-
-  Future<void> _pickFiles() async {
-    try {
-      final result = await FilePicker.platform.pickFiles(
-        type: widget.fileType,
-        allowMultiple: widget.allowMultiple,
-        allowedExtensions: widget.fileType == FileType.custom
-            ? widget.allowedExtensions
-            : null,
-      );
-
-      if (result != null) {
-        if (!mounted) return;
-
-        if (widget.maxFiles != null && result.files.length > widget.maxFiles!) {
-          AppToast.warning(
-            context.l10n.sharedMaxFilesAllowed(widget.maxFiles!),
-          );
-          return;
-        }
-
-        if (widget.maxSizeInMB != null) {
-          for (final file in result.files) {
-            if (file.size > (widget.maxSizeInMB! * 1024 * 1024)) {
-              AppToast.warning(
-                context.l10n.sharedFileTooLarge(file.name, widget.maxSizeInMB!),
-              );
-              return;
-            }
-          }
-        }
-
-        setState(() {
-          if (widget.allowMultiple) {
-            _selectedFiles = [..._selectedFiles, ...result.files];
-          } else {
-            _selectedFiles = result.files;
-          }
-        });
-
-        FormBuilder.of(context)?.fields[widget.name]?.didChange(_selectedFiles);
-        widget.onFilesChanged?.call(_selectedFiles);
-        logData('Files selected: ${_selectedFiles.length}');
-      }
-    } catch (e, s) {
-      logError('Error picking files', e, s);
-      if (mounted) {
-        AppToast.error(context.l10n.sharedFailedToPickFiles);
-      }
-    }
-  }
-
-  void _removeFile(int index) {
-    setState(() {
-      _selectedFiles.removeAt(index);
-      FormBuilder.of(context)?.fields[widget.name]?.didChange(_selectedFiles);
-      widget.onFilesChanged?.call(_selectedFiles);
-    });
-  }
-
-  void reset() {
-    setState(() => _selectedFiles = []);
-    FormBuilder.of(context)?.fields[widget.name]?.didChange(_selectedFiles);
-    widget.onFilesChanged?.call(_selectedFiles);
-  }
-
-  void _previewFile(PlatformFile file) {
+  void _previewFile(BuildContext context, PlatformFile file) {
     showDialog<void>(
       context: context,
       barrierColor: context.colors.overlay,
@@ -170,22 +90,75 @@ class AppFilePickerState extends State<AppFilePicker> {
   @override
   Widget build(BuildContext context) {
     return FormBuilderField<List<PlatformFile>>(
-      name: widget.name,
-      validator: widget.validator,
-      initialValue: widget.initialFiles,
+      name: name,
+      validator: validator,
+      initialValue: initialFiles ?? [],
       builder: (FormFieldState<List<PlatformFile>> field) {
+        final selectedFiles = field.value ?? [];
+
+        Future<void> pickFiles() async {
+          try {
+            final result = await FilePicker.platform.pickFiles(
+              type: fileType,
+              allowMultiple: allowMultiple,
+              allowedExtensions: fileType == FileType.custom ? allowedExtensions : null,
+            );
+
+            if (result != null) {
+              if (!context.mounted) return;
+
+              if (maxFiles != null && result.files.length > maxFiles!) {
+                AppToast.warning(context.l10n.sharedMaxFilesAllowed(maxFiles!));
+                return;
+              }
+
+              if (maxSizeInMB != null) {
+                for (final file in result.files) {
+                  if (file.size > (maxSizeInMB! * 1024 * 1024)) {
+                    AppToast.warning(context.l10n.sharedFileTooLarge(file.name, maxSizeInMB!));
+                    return;
+                  }
+                }
+              }
+
+              List<PlatformFile> newFiles;
+              if (allowMultiple) {
+                newFiles = [...selectedFiles, ...result.files];
+              } else {
+                newFiles = result.files;
+              }
+
+              field.didChange(newFiles);
+              onFilesChanged?.call(newFiles);
+              logData('Files selected: ${newFiles.length}');
+            }
+          } catch (e, s) {
+            logError('Error picking files', e, s);
+            if (context.mounted) {
+              AppToast.error(context.l10n.sharedFailedToPickFiles);
+            }
+          }
+        }
+
+        void removeFile(int index) {
+          final newFiles = List<PlatformFile>.from(selectedFiles);
+          newFiles.removeAt(index);
+          field.didChange(newFiles);
+          onFilesChanged?.call(newFiles);
+        }
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (widget.label != null) ...[
+            if (label != null) ...[
               Row(
                 children: [
                   AppText(
-                    widget.label!,
+                    label!,
                     style: AppTextStyle.bodySmall,
                     fontWeight: FontWeight.w600,
                   ),
-                  if (widget.isRequired)
+                  if (isRequired)
                     AppText(
                       ' *',
                       color: context.semantic.error,
@@ -196,7 +169,7 @@ class AppFilePickerState extends State<AppFilePicker> {
               const SizedBox(height: 8),
             ],
             InkWell(
-              onTap: _pickFiles,
+              onTap: pickFiles,
               borderRadius: BorderRadius.circular(12),
               child: Container(
                 padding: const EdgeInsets.all(16),
@@ -204,9 +177,7 @@ class AppFilePickerState extends State<AppFilePicker> {
                   color: context.colors.surface,
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color: field.hasError
-                        ? context.semantic.error
-                        : context.colors.border,
+                    color: field.hasError ? context.semantic.error : context.colors.border,
                   ),
                 ),
                 child: Row(
@@ -218,7 +189,7 @@ class AppFilePickerState extends State<AppFilePicker> {
                     const SizedBox(width: 12),
                     Expanded(
                       child: AppText(
-                        widget.hintText ?? context.l10n.sharedChooseFiles,
+                        hintText ?? context.l10n.sharedChooseFiles,
                         style: AppTextStyle.bodyMedium,
                         color: context.colors.textSecondary,
                       ),
@@ -231,17 +202,15 @@ class AppFilePickerState extends State<AppFilePicker> {
                 ),
               ),
             ),
-            if (_selectedFiles.isNotEmpty) ...[
+            if (selectedFiles.isNotEmpty) ...[
               const SizedBox(height: 12),
-              ..._selectedFiles.asMap().entries.map((entry) {
+              ...selectedFiles.asMap().entries.map((entry) {
                 final index = entry.key;
                 final file = entry.value;
                 return _FileItem(
                   file: file,
-                  onRemove: () => _removeFile(index),
-                  onPreview: _isPreviewable(file)
-                      ? () => _previewFile(file)
-                      : null,
+                  onRemove: () => removeFile(index),
+                  onPreview: _isPreviewable(file) ? () => _previewFile(context, file) : null,
                 );
               }),
             ],
