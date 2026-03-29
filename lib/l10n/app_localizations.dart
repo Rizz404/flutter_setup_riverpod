@@ -1174,7 +1174,7 @@ abstract class L10n {
   /// App end drawer title
   ///
   /// In en, this message translates to:
-  /// **'Yoshida Motors'**
+  /// **'My App'**
   String get appEndDrawerTitle;
 
   /// Message shown when user needs to login
@@ -1336,7 +1336,7 @@ abstract class L10n {
   /// App bar title
   ///
   /// In en, this message translates to:
-  /// **'Yoshida Motors'**
+  /// **'My App'**
   String get customAppBarTitle;
 
   /// Open menu button label

@@ -32,7 +32,7 @@ class TalkerConfig {
   );
 
   static void _logAppStart() {
-    logger.info('Yoshida Motors App Started');
+    logger.info('My App App Started');
     logger.debug('Environment: ${kDebugMode ? 'DEBUG' : 'RELEASE'}');
     logger.debug('Platform: ${defaultTargetPlatform.name}');
   }

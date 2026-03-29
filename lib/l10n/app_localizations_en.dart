@@ -598,7 +598,7 @@ class L10nEn extends L10n {
   String get userShellBottomNavProfile => 'Profile';
 
   @override
-  String get appEndDrawerTitle => 'Yoshida Motors';
+  String get appEndDrawerTitle => 'My App';
 
   @override
   String get appEndDrawerPleaseLoginFirst => 'Please login first';
@@ -679,7 +679,7 @@ class L10nEn extends L10n {
   String get appEndDrawerProfile => 'Profile';
 
   @override
-  String get customAppBarTitle => 'Yoshida Motors';
+  String get customAppBarTitle => 'My App';
 
   @override
   String get customAppBarOpenMenu => 'Open Menu';

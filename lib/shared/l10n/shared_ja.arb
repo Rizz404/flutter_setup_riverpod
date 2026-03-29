@@ -24,7 +24,7 @@
   "@userShellBottomNavProfile": {
     "description": "User shell bottom navigation label for profile"
   },
-  "appEndDrawerTitle": "Yoshida Motors",
+  "appEndDrawerTitle": "My App",
   "@appEndDrawerTitle": {
     "description": "App end drawer title"
   },
@@ -132,7 +132,7 @@
   "@appEndDrawerProfile": {
     "description": "Profile menu item"
   },
-  "customAppBarTitle": "Yoshida Motors",
+  "customAppBarTitle": "My App",
   "@customAppBarTitle": {
     "description": "App bar title"
   },
